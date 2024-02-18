@@ -1,12 +1,12 @@
 import UilReact from '@iconscout/react-unicons/icons/uil-react'
+import TopButtons from "./Components/TopButtons"
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1 className='text-2xl font-bold text-red-500'>Hello World</h1>
-      <UilReact size={50}/>
-    </div>
+  <div className='App'>
+    <TopButtons/>
+  </div>
   );
 }
 
