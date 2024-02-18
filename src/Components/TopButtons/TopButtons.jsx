@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./TopButtons.module.css"
 
 function TopButtons() {
   const cities = [
@@ -25,9 +26,9 @@ function TopButtons() {
   ];
 
   return (
-    <div className="flex items-center justify-center my-6">
+    <div className={styles.topButtons}>
         {cities.map((city, index) => (
-            <button className="text-white text-lg" key={index}>{city.title}</button>
+            <button key={index}>{city.title}</button>
         ))}
     </div>
   );
