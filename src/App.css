@@ -6,7 +6,14 @@
   margin: auto;
   margin-top: 16px;
   padding: 20px 128px;
-  background-image: linear-gradient(to bottom right, #0597f2, #1567d8);
+ background-color: rgb(50, 50, 50);
   height: fit-content;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
+}
+
+.icon {
+  color: white;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }
