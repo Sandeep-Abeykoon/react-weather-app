@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TopButtons.module.css"
 
-function TopButtons() {
+export const TopButtons = ()=> {
   const cities = [
     {
       id: 1,
@@ -27,11 +27,9 @@ function TopButtons() {
 
   return (
     <div className={styles.topButtons}>
-        {cities.map((city, index) => (
-            <button key={index}>{city.title}</button>
+        {cities.map((city) => (
+            <button key={city.id}>{city.title}</button>
         ))}
     </div>
   );
 }
-
-export default TopButtons;

@@ -1,11 +1,11 @@
 .topButtons {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    margin: 6px 0px;
 }
 
 .topButtons button {
     color: white;
-    font-size: large;
+    font-size: 1.125rem;
+    font-weight: 500;
 }
