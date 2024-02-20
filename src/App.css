@@ -1,4 +1,5 @@
 .App {
+  color: white;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -6,14 +7,18 @@
   margin: auto;
   margin-top: 16px;
   padding: 20px 128px;
- background-color: rgb(50, 50, 50);
+  background-color: rgb(50, 50, 50);
   height: fit-content;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
 }
 
 .icon {
-  color: white;
   width: 30px;
   height: 30px;
   cursor: pointer;
+  transition: transform 0.1s ease-out;
+}
+
+.icon:hover {
+  transform: scale(1.1);
 }

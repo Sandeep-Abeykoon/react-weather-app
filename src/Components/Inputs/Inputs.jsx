@@ -10,6 +10,12 @@ export const Inputs = () => {
         <UilSearch className="icon"/>
         <UilLocationPoint className="icon"/>
       </div>
+
+      <div className={styles.temperatureUnits}>
+        <button name="metric">°C</button>
+        <p>|</p>
+        <button name="imperial">°F</button>
+      </div>
     </div>
   );
 };
