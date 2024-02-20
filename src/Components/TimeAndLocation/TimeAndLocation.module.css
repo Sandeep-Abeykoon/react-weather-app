@@ -1,0 +1,17 @@
+.timeAndLocation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.dateTime {
+  font-size: 1.25em;
+  font-weight: 200;
+}
+
+.city {
+  font-size: 1.875rem;
+  font-weight: 500;
+}
