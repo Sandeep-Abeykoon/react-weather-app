@@ -12,6 +12,8 @@
 }
 
 .details {
+    width: 100%;
+    background-color: red;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -21,4 +23,19 @@
 .details img {
     width: 50px;
     height: auto;
+}
+
+.details p {
+    font-size: 2.5rem;
+}
+
+.stats {
+    font-weight: 300;
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+    background-color: green;
+    flex-direction: column;
+    gap: 5px;
 }
