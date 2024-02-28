@@ -6,7 +6,7 @@
   max-width: 768px;
   margin: auto;
   margin-top: 16px;
-  padding: 20px 128px;
+  padding: 40px 128px;
   background: linear-gradient(to bottom right, rgb(50, 50, 50), rgba(50, 50, 50, 0.9));
   height: fit-content;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
