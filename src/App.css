@@ -7,9 +7,15 @@
   margin: auto;
   margin-top: 16px;
   padding: 20px 128px;
-  background-color: rgb(50, 50, 50);
+  background: linear-gradient(to bottom right, rgb(50, 50, 50), rgba(50, 50, 50, 0.9));
   height: fit-content;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
+}
+
+button {
+  background: none;
+  border: none;
+  color: white;
 }
 
 .icon {

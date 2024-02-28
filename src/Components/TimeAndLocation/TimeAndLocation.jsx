@@ -7,9 +7,9 @@ export const TimeAndLocation = () => {
         <p className={styles.dateTime}>
             Tuesday, 31 May 2022 | Local time: 12:46 PM
         </p>
-        <p className={styles.city}>
+        <div className={styles.city}>
             Berlin, DE
-        </p>
+        </div>
     </div>
   )
 }
