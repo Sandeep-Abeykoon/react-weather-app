@@ -13,7 +13,6 @@
 
 .details {
     width: 100%;
-    background-color: red;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -35,7 +34,13 @@
     display: flex;
     justify-content: center;
     justify-content: center;
-    background-color: green;
     flex-direction: column;
+    gap: 5px;
+}
+
+.stat {
+    display: flex;
+    justify-content: left;
+    align-items: center;
     gap: 5px;
 }
