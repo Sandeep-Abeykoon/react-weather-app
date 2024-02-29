@@ -17,7 +17,17 @@ const TemperatureAndDetails = () => {
             <div className={styles.stat}><UilWind/><span>Wind :</span><span style={{fontWeight:"bold"}}>11Kmph</span></div>
         </div>
       </div>
-      <div className={styles.highLowStats}>hey</div>
+
+      <div className={styles.highLowStats}>
+     <div className={styles.highLowStat}>
+      <UilSun/>
+     <span>Rise:</span><span className={styles.statValue}>06:45 AM</span>
+     </div>
+       
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+      </div>
       </div>
 
   )

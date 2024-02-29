@@ -46,8 +46,17 @@
 }
 
 .highLowStats{
+    font-size: 0.875rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+}
+
+.highLowStats {
+    font-weight: 300;
+}
+
+.statValue {
+    font-weight: 500;
 }
