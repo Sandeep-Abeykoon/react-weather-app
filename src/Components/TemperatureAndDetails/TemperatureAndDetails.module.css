@@ -28,7 +28,7 @@
     font-size: 2.5rem;
 }
 
-.stats {
+.basicStats {
     font-weight: 300;
     font-size: 0.875rem;
     display: flex;
@@ -43,4 +43,11 @@
     justify-content: left;
     align-items: center;
     gap: 5px;
+}
+
+.highLowStats{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
