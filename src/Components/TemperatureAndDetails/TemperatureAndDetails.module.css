@@ -51,10 +51,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    font-weight: 300;
 }
 
-.highLowStats {
-    font-weight: 300;
+.highLowStat {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 5px;
 }
 
 .statValue {
