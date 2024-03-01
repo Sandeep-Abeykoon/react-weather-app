@@ -8,7 +8,7 @@ const getWeatherData = (infoType, searchParams) => {
   return fetch(url).then((res) => res.json());
 };
 
-const formateCurrentWeather = (data) => {
+const formatCurrentWeather = (data) => {
   const {
     coord: { lat, lon },
     main: { temp, feels_like, temp_min, temp_max, humidity },
@@ -40,11 +40,25 @@ const formateCurrentWeather = (data) => {
   };
 };
 
+const formatForecastWeather = (data) => {
+  let { timezone, daily, hourly } = data;
+  daily = daily.slice(1, 6).map()
+};
+
 const getFormattedWeatherData = async (searchParams) => {
   const formattedCurrentWeather = await getWeatherData(
     "weather",
     searchParams
-  ).then(formateCurrentWeather);
+  ).then(formatCurrentWeather);
+
+  const { long, lat } = formattedCurrentWeather;
+
+  const formattedForecastWeather = await getWeatherData("onecall", {
+    long,
+    lat,
+    exclude: "current,minutely,alerts",
+    units: searchParams.units,
+  }).then(formatForecastWeather);
 
   return formattedCurrentWeather;
 };
