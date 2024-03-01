@@ -1,0 +1,47 @@
+.forecast {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.forecast .heading {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.forecast hr {
+    width: 100%;
+}
+
+.dataContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+   
+}
+
+.dataComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+}
+
+.dataComponent .time {
+    font-weight: 300; 
+    font-size: small; 
+}
+
+.dataComponent img {
+    width: 20px;
+    height: auto;
+}
+
+.dataComponent .temperature {
+    font-weight: 500;
+}
