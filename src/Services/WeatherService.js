@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 const API_KEY = "5db6d5cd7f140ed2ede4003d3b70018f";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
@@ -40,27 +42,50 @@ const formatCurrentWeather = (data) => {
   };
 };
 
-const formatForecastWeather = (data) => {
-  let { timezone, daily, hourly } = data;
-  daily = daily.slice(1, 6).map()
-};
+// const formatForecastWeather = (data) => {
+//   let { timezone, daily, hourly } = data;
+//   daily = daily.slice(1, 6).map((d) => {
+//     return {
+//       title: formatTolocalTime(d.dt, timezone, "ccc"),
+//       temp: d.temp.day,
+//       icon: d.weather[0].icon,
+//     };
+//   });
 
+//   hourly = daily.slice(1, 6).map((d) => {
+//     return {
+//       title: formatTolocalTime(d.dt, timezone, "hh:mm a"),
+//       temp: d.temp.day,
+//       icon: d.weather[0].icon,
+//     };
+//   });
+
+//   return { timezone, daily, hourly };
+// };
+
+// const formatTolocalTime = (
+//   secs,
+//   zone,
+//   format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
+// ) => DateTime.fromSeconds(secs).setZone(zone).toFormat(format);
+
+// Main Function called to get the weather data
 const getFormattedWeatherData = async (searchParams) => {
   const formattedCurrentWeather = await getWeatherData(
     "weather",
     searchParams
   ).then(formatCurrentWeather);
 
-  const { long, lat } = formattedCurrentWeather;
+  // const { lon, lat } = formattedCurrentWeather;
 
-  const formattedForecastWeather = await getWeatherData("onecall", {
-    long,
-    lat,
-    exclude: "current,minutely,alerts",
-    units: searchParams.units,
-  }).then(formatForecastWeather);
+  // const formattedForecastWeather = await getWeatherData("onecall", {
+  //   lon,
+  //   lat,
+  //   exclude: "current,minutely,alerts",
+  //   units: searchParams.units,
+  // }).then(formatForecastWeather);
 
-  return formattedCurrentWeather;
+  return { ...formattedCurrentWeather }; // formattedForcastWeather is not returned as api plan restrictions
 };
 
 export default getFormattedWeatherData;
