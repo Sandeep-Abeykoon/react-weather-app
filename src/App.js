@@ -8,7 +8,9 @@ import getWeatherData from "./Services/WeatherService";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [weatherData, setWeatherData] = useState(null);
+  const [currentWeatherData, setCurrentWeatherData] = useState(null);
+  const [hourlyWeatherForecast, setHourlyWeatherForecast] = useState(null)
+
   const [units, setUnits] = useState("metric");
 
   useEffect(() => {
@@ -17,27 +19,32 @@ function App() {
         lat: "6.9387469",
         lon: "79.8541134",
         units: units,
-      }).then(setWeatherData);
+      }).then((data) => {
+        setCurrentWeatherData(data.current);
+        setHourlyWeatherForecast(data.hourly)
+      });
     };
 
     fetchWeather();
   }, [units]);
 
-  console.log(weatherData)
-
   return (
     <div className="App">
       <TopButtons />
       <Inputs />
-      {weatherData && (
+      {currentWeatherData && (
         <>
-          <TimeAndLocation weather={weatherData.current} />
-          <TemperatureAndDetails weather={weatherData.current} />
+          <TimeAndLocation weather={currentWeatherData} />
+          <TemperatureAndDetails weather={currentWeatherData} />
         </>
       )}
-
-      <Forecast title="Hourly" />
-      <Forecast title="Daily" />
+      {hourlyWeatherForecast && (
+        <>
+        <Forecast title="Hourly" data={hourlyWeatherForecast}/>
+        </>
+      )}
+      {/* <Forecast title="Hourly" />
+      <Forecast title="Daily" /> */}
     </div>
   );
 }

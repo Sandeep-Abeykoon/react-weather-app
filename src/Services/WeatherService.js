@@ -57,7 +57,10 @@ const formatWeather = (data) => {
 
 const formatForcastWeather = (data) => {
   const daily = data.list.slice(0, 5);
-  return daily.map(formatWeather);
+  return daily.map((dailyData) => {
+    const { localTime, iconUrl, temp } = formatWeather(dailyData);
+    return { localTime, iconUrl, temp };
+  });
 };
 
 // Function to return the icon url from the icon code
