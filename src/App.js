@@ -8,29 +8,31 @@ import getWeatherData from "./Services/WeatherService";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [currentWeather, setCurrentWeather] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [units, setUnits] = useState("metric");
 
   useEffect(() => {
     const fetchWeather = async () => {
       await getWeatherData({
         lat: "6.9387469",
         lon: "79.8541134",
-      }).then(setCurrentWeather);
+        units: units,
+      }).then(setWeatherData);
     };
 
     fetchWeather();
-  }, []);
+  }, [units]);
 
-  console.log(currentWeather);
+  console.log(weatherData)
 
   return (
     <div className="App">
       <TopButtons />
       <Inputs />
-      {currentWeather && (
+      {weatherData && (
         <>
-          <TimeAndLocation weather={currentWeather}/>
-          <TemperatureAndDetails weather={currentWeather} />
+          <TimeAndLocation weather={weatherData.current} />
+          <TemperatureAndDetails weather={weatherData.current} />
         </>
       )}
 

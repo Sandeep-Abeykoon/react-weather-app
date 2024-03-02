@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 const API_KEY = "5db6d5cd7f140ed2ede4003d3b70018f";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
-const dateTimeFormat = "cccc, dd LLLL yyyy' | Local time: 'hh:mm a";
+const dateFormat = "cccc, dd LLLL yyyy";
 const timeFormat = "hh:mm a";
 
 // Main function called from the app to get the weather data
@@ -11,37 +11,53 @@ const getWeatherData = async (searchParams) => {
   const formattedCurrentWeather = await fetchWeatherData(
     "weather",
     searchParams
-  ).then(formatCurrentWeather);
-  return { ...formattedCurrentWeather }; // formattedForcastWeather is not returned as api plan restrictions
+  ).then(formatWeather);
+
+  const formattedDailyForcastWeather = await fetchWeatherData(
+    "forecast",
+    searchParams
+  ).then(formatForcastWeather);
+
+  return {
+    current: formattedCurrentWeather,
+    hourly: formattedDailyForcastWeather,
+  };
 };
 
 // Function to Format the current weather data
-const formatCurrentWeather = (data) => {
+const formatWeather = (data) => {
   const {
-    main: { temp, feels_like, temp_min, temp_max, humidity },
+    main: { temp, feels_like, temp_min, temp_max, pressure, humidity },
     name,
     dt,
-    sys: { country, sunrise, sunset },
+    sys: { country, sunrise, sunset } = {}, // Destructure with default value to handle missing properties
     weather,
     wind: { speed },
   } = data;
 
-  const { main: details, icon } = weather[0];
+  const { description, icon } = weather[0];
   return {
     temp,
     feels_like,
     temp_min,
     temp_max,
+    pressure,
     humidity,
     name,
-    localTime: formatTolocalTime(dt, dateTimeFormat),
+    localDate: formatTolocalDateTime(dt, dateFormat),
+    localTime: formatTolocalDateTime(dt, timeFormat),
     country,
-    sunrise: formatTolocalTime(sunrise, timeFormat),
-    sunset: formatTolocalTime(sunset, timeFormat),
-    details,
+    sunrise: sunrise ? formatTolocalDateTime(sunrise, timeFormat) : "N/A",
+    sunset: sunset ? formatTolocalDateTime(sunset, timeFormat) : "N/A",
+    description,
     iconUrl: getIconUrl(icon),
     speed,
   };
+};
+
+const formatForcastWeather = (data) => {
+  const daily = data.list.slice(0, 5);
+  return daily.map(formatWeather);
 };
 
 // Function to return the icon url from the icon code
@@ -50,7 +66,7 @@ const getIconUrl = (iconCode) => {
 };
 
 // Function to format the Unix timestamp to datetime
-const formatTolocalTime = (timestamp, format) => {
+const formatTolocalDateTime = (timestamp, format) => {
   const date = DateTime.fromSeconds(timestamp);
   return date.toFormat(format);
 };

@@ -12,7 +12,7 @@ import styles from "./TemperatureAndDetails.module.css";
 
 const TemperatureAndDetails = ({
   weather: {
-    details,
+    description,
     iconUrl,
     temp,
     temp_min,
@@ -26,7 +26,7 @@ const TemperatureAndDetails = ({
 }) => {
   return (
     <div className={styles.temperatureAndDetails}>
-      <div className={styles.weather}>{details}</div>
+      <div className={styles.weather}>{description}</div>
       <div className={styles.details}>
         <img src={iconUrl} alt="Weather Icon" />
         <p>{temp.toFixed()}°</p>
