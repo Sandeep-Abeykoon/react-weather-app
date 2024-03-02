@@ -10,15 +10,14 @@ import { useEffect, useState } from "react";
 function App() {
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
   const [hourlyWeatherForecast, setHourlyWeatherForecast] = useState(null);
-
-  const [units, setUnits] = useState("metric");
+  const [unit, setUnit] = useState("metric");
 
   useEffect(() => {
     const fetchWeather = async () => {
       await getWeatherData({
         lat: "6.927079",
         lon: "79.861244",
-        units: units,
+        units: unit,
       }).then((data) => {
         setCurrentWeatherData(data.current);
         setHourlyWeatherForecast(data.hourly);
@@ -33,13 +32,13 @@ function App() {
 
     // Clean up the interval to avoid memory leaks
     return () => clearInterval(interval);
-  }, [units]);
+  }, [unit]);
 
   console.log(currentWeatherData);
   return (
     <div className="App">
       <TopButtons />
-      <Inputs />
+      <Inputs setUnit={setUnit}/>
       {currentWeatherData && (
         <>
           <TimeAndLocation weather={currentWeatherData} />
