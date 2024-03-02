@@ -3,16 +3,21 @@ import { DateTime } from "luxon";
 const API_KEY = "5db6d5cd7f140ed2ede4003d3b70018f";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
-const getWeatherData = (infoType, searchParams) => {
-  const url = new URL(BASE_URL + infoType);
-  url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
+const dateTimeFormat = "cccc, dd LLLL yyyy' | Local time: 'hh:mm a";
+const timeFormat = "hh:mm a";
 
-  return fetch(url).then((res) => res.json());
+// Main function called from the app to get the weather data
+const getWeatherData = async (searchParams) => {
+  const formattedCurrentWeather = await fetchWeatherData(
+    "weather",
+    searchParams
+  ).then(formatCurrentWeather);
+  return { ...formattedCurrentWeather }; // formattedForcastWeather is not returned as api plan restrictions
 };
 
+// Function to Format the current weather data
 const formatCurrentWeather = (data) => {
   const {
-    coord: { lat, lon },
     main: { temp, feels_like, temp_min, temp_max, humidity },
     name,
     dt,
@@ -22,24 +27,41 @@ const formatCurrentWeather = (data) => {
   } = data;
 
   const { main: details, icon } = weather[0];
-
   return {
-    lat,
-    lon,
     temp,
     feels_like,
     temp_min,
     temp_max,
     humidity,
     name,
-    dt,
+    localTime: formatTolocalTime(dt, dateTimeFormat),
     country,
-    sunrise,
-    sunset,
+    sunrise: formatTolocalTime(sunrise, timeFormat),
+    sunset: formatTolocalTime(sunset, timeFormat),
     details,
-    icon,
+    iconUrl: getIconUrl(icon),
     speed,
   };
+};
+
+// Function to return the icon url from the icon code
+const getIconUrl = (iconCode) => {
+  return `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+};
+
+// Function to format the Unix timestamp to datetime
+const formatTolocalTime = (timestamp, format) => {
+  const date = DateTime.fromSeconds(timestamp);
+  return date.toFormat(format);
+};
+
+// Function to fetch weather data from the openweathermap api
+const fetchWeatherData = async (infoType, searchParams) => {
+  const url = new URL(BASE_URL + infoType);
+  url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
+
+  const res = await fetch(url);
+  return await res.json();
 };
 
 // const formatForecastWeather = (data) => {
@@ -63,29 +85,15 @@ const formatCurrentWeather = (data) => {
 //   return { timezone, daily, hourly };
 // };
 
-// const formatTolocalTime = (
-//   secs,
-//   zone,
-//   format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
-// ) => DateTime.fromSeconds(secs).setZone(zone).toFormat(format);
-
 // Main Function called to get the weather data
-const getFormattedWeatherData = async (searchParams) => {
-  const formattedCurrentWeather = await getWeatherData(
-    "weather",
-    searchParams
-  ).then(formatCurrentWeather);
 
-  // const { lon, lat } = formattedCurrentWeather;
+// const { lon, lat } = formattedCurrentWeather;
 
-  // const formattedForecastWeather = await getWeatherData("onecall", {
-  //   lon,
-  //   lat,
-  //   exclude: "current,minutely,alerts",
-  //   units: searchParams.units,
-  // }).then(formatForecastWeather);
+// const formattedForecastWeather = await getWeatherData("onecall", {
+//   lon,
+//   lat,
+//   exclude: "current,minutely,alerts",
+//   units: searchParams.units,
+// }).then(formatForecastWeather);
 
-  return { ...formattedCurrentWeather }; // formattedForcastWeather is not returned as api plan restrictions
-};
-
-export default getFormattedWeatherData;
+export default getWeatherData;

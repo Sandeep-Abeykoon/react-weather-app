@@ -4,21 +4,36 @@ import { Inputs } from "./Components/Inputs/Inputs";
 import { TimeAndLocation } from "./Components/TimeAndLocation/TimeAndLocation";
 import TemperatureAndDetails from "./Components/TemperatureAndDetails/TemperatureAndDetails";
 import { Forecast } from "./Components/Forecast/Forecast";
-import getFormattedWeatherData from "./Services/WeatherService";
+import getWeatherData from "./Services/WeatherService";
+import { useEffect, useState } from "react";
 
 function App() {
-  const fetchWeather = async () => {
-    const data = await getFormattedWeatherData({q:'london'});
-    console.log(data)
-  };
+  const [currentWeather, setCurrentWeather] = useState(null);
 
-  fetchWeather();
+  useEffect(() => {
+    const fetchWeather = async () => {
+      await getWeatherData({
+        lat: "6.9387469",
+        lon: "79.8541134",
+      }).then(setCurrentWeather);
+    };
+
+    fetchWeather();
+  }, []);
+
+  console.log(currentWeather);
+
   return (
     <div className="App">
       <TopButtons />
       <Inputs />
-      <TimeAndLocation />
-      <TemperatureAndDetails />
+      {currentWeather && (
+        <>
+          <TimeAndLocation weather={currentWeather}/>
+          <TemperatureAndDetails weather={currentWeather} />
+        </>
+      )}
+
       <Forecast title="Hourly" />
       <Forecast title="Daily" />
     </div>
