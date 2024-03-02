@@ -29,12 +29,12 @@ const TemperatureAndDetails = ({
       <div className={styles.weather}>{details}</div>
       <div className={styles.details}>
         <img src={iconUrl} alt="Weather Icon" />
-        <p>{temp}°</p>
+        <p>{temp.toFixed()}°</p>
         <div className={styles.basicStats}>
           <div className={styles.stat}>
             <UilTemperature />
             <span>Real Feel : </span>
-            <span style={{ fontWeight: "bold" }}>{feels_like}°</span>
+            <span style={{ fontWeight: "bold" }}>{feels_like.toFixed()}°</span>
           </div>
           <div className={styles.stat}>
             <UilTear />
@@ -67,14 +67,14 @@ const TemperatureAndDetails = ({
         <div className={styles.highLowStat}>
           <UilSun />
           <span>High:</span>
-          <span className={styles.statValue}>{temp_max}°</span>
+          <span className={styles.statValue}>{temp_max.toFixed()}°</span>
           <span style={{ marginLeft: "10px", marginRight: "10px" }}>|</span>
         </div>
 
         <div className={styles.highLowStat}>
           <UilSun />
           <span>Low:</span>
-          <span className={styles.statValue}>{temp_min}°</span>
+          <span className={styles.statValue}>{temp_min.toFixed()}°</span>
         </div>
       </div>
     </div>
