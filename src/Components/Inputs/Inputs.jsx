@@ -7,14 +7,18 @@ export const Inputs = () => {
     <div className={styles.inputs}>
       <div className={styles.searchContainer}>
         <input type="text" placeholder="Search for city..." />
-        <UilSearch className="icon"/>
-        <UilLocationPoint className="icon"/>
+        <UilSearch className="icon" />
+        <UilLocationPoint className="icon" />
       </div>
 
       <div className={styles.temperatureUnits}>
-        <button name="metric">°C</button>
+        <button name="metric" className="icon">
+          °C
+        </button>
         <p>|</p>
-        <button name="imperial">°F</button>
+        <button name="imperial" className="icon">
+          °F
+        </button>
       </div>
     </div>
   );
