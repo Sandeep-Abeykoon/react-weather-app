@@ -5,34 +5,34 @@ import styles from "./Inputs.module.css";
 
 export const Inputs = ({ setUnit }) => {
   const [city, setCity] = useState("");
-  const [cityData, setCityData] = useState({});
+  const [cityData, setCityData] = useState([]);
 
   useEffect(() => {
     const getCitiesData = async () => {
       await getCitiesByName({ q: city, limit: "5" }).then(setCityData);
     };
     if (city !== "") {
-      
+      getCitiesData();
     }
   }, [city]);
 
+  console.log(cityData);
   return (
     <div className={styles.inputs}>
       <div className={styles.searchContainer}>
         <div className={styles.search}>
-        <input
-          type="text"
-          placeholder="Search for city..."
-          onChange={(e) => setCity(e.currentTarget.value)}
-        />
-        <div className={styles.suggessions}>
-          <span>Colombo</span>
-          <span>Colombo</span>
-          <span>Colombo</span>
-          <span>Colombo</span>
+          <input
+            type="text"
+            placeholder="Search for city..."
+            onChange={(e) => setCity(e.currentTarget.value)}
+          />
+          <div className={styles.suggessions}>
+            {cityData.map((city, index) => (
+              <span key={index}>{city.name}</span>
+            ))}
+          </div>
         </div>
-        </div>
-        
+
         <UilSearch className="icon" />
         <UilLocationPoint className="icon" />
       </div>

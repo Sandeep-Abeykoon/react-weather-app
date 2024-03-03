@@ -86,7 +86,7 @@ const fetchAPIData = async (path, searchParams) => {
 
 export const getCitiesByName = async (searchParams) => {
   const data = await fetchAPIData("geo/1.0/direct?", searchParams);
-  console.log(data);
+  return data;
 };
 
 export default getWeatherData;
