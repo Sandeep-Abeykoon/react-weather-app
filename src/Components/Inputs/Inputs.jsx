@@ -12,18 +12,27 @@ export const Inputs = ({ setUnit }) => {
       await getCitiesByName({ q: city, limit: "5" }).then(setCityData);
     };
     if (city !== "") {
-      getCitiesData();
+      
     }
   }, [city]);
 
   return (
     <div className={styles.inputs}>
       <div className={styles.searchContainer}>
+        <div className={styles.search}>
         <input
           type="text"
           placeholder="Search for city..."
           onChange={(e) => setCity(e.currentTarget.value)}
         />
+        <div className={styles.suggessions}>
+          <span>Colombo</span>
+          <span>Colombo</span>
+          <span>Colombo</span>
+          <span>Colombo</span>
+        </div>
+        </div>
+        
         <UilSearch className="icon" />
         <UilLocationPoint className="icon" />
       </div>
