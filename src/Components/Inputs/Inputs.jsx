@@ -8,15 +8,21 @@ export const Inputs = ({ setUnit }) => {
   const [cityData, setCityData] = useState([]);
 
   useEffect(() => {
-    const getCitiesData = async () => {
-      await getCitiesByName({ q: city, limit: "5" }).then(setCityData);
-    };
-    if (city !== "") {
-      getCitiesData();
-    }
+    const delay = setTimeout(() => {
+      const getCitiesData = async () => {
+        await getCitiesByName({ q: city, limit: "5" }).then(setCityData);
+      };
+
+      if (city.trim() === "") {
+        setCityData([]);
+      } else {
+        getCitiesData();
+      }
+    }, 300); // A timeout is added to makesure to fetch the data, when the user has stopped typing.
+
+    return () => clearTimeout(delay);
   }, [city]);
 
-  console.log(cityData);
   return (
     <div className={styles.inputs}>
       <div className={styles.searchContainer}>
@@ -24,10 +30,10 @@ export const Inputs = ({ setUnit }) => {
           <input
             type="text"
             placeholder="Search for city..."
-            onChange={(e) => setCity(e.currentTarget.value)}
+            onChange={(e) => setCity(e.currentTarget.value.trim())}
           />
           <div className={styles.suggessions}>
-            {cityData.map((city, index) => (
+            {cityData?.map((city, index) => (
               <span key={index}>{city.name}</span>
             ))}
           </div>
