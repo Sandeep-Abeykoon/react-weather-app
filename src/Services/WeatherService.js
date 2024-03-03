@@ -9,7 +9,6 @@ const timeFormat = "hh:mm a";
 
 // Main function called from the app to get the weather data
 const getWeatherData = async (searchParams) => {
-  getCitiesByName()
   const formattedCurrentWeather = await fetchAPIData(
     WEATHER_DATA_ROUTE + "weather",
     searchParams
@@ -85,12 +84,9 @@ const fetchAPIData = async (path, searchParams) => {
   return await res.json();
 };
 
-const getCitiesByName = async (searchParams) => {
-  const data = await fetchAPIData("geo/1.0/direct?", {
-    q: "London",
-    limit: "5",
-  });
-  console.log(data)
+export const getCitiesByName = async (searchParams) => {
+  const data = await fetchAPIData("geo/1.0/direct?", searchParams);
+  console.log(data);
 };
 
 export default getWeatherData;
