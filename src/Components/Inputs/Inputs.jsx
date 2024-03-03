@@ -23,6 +23,8 @@ export const Inputs = ({ setUnit }) => {
     return () => clearTimeout(delay);
   }, [city]);
 
+  console.log(cityData)
+
   return (
     <div className={styles.inputs}>
       <div className={styles.searchContainer}>
@@ -34,7 +36,7 @@ export const Inputs = ({ setUnit }) => {
           />
           <div className={styles.suggessions}>
             {cityData?.map((city, index) => (
-              <span key={index}>{city.name}</span>
+              <span key={index}>{city.name} {`(${city.state}, ${city.country})`}</span>
             ))}
           </div>
         </div>
