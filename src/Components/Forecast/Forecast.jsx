@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Forecast.module.css";
 
-export const Forecast = ({ title = "", data }) => {
-  console.log(data)
+export const Forecast = ({ title = "", data, unitSymbol }) => {
   return (
     <div className={styles.forecast}>
       <span className={styles.heading}>{`${title} Forecast`}</span>
@@ -11,11 +10,8 @@ export const Forecast = ({ title = "", data }) => {
         {data?.map((data, index) => (
           <div className={styles.dataComponent} key={index}>
             <span className={styles.time}>{data.localTime}</span>
-            <img
-              src={data.iconUrl}
-              alt="Weather Icon"
-            />
-            <span className={styles.temperature}>{data.temp.toFixed()}°</span>
+            <img src={data.iconUrl} alt="Weather Icon" />
+            <span className={styles.temperature}>{data.temp.toFixed()}{unitSymbol}</span>
           </div>
         ))}
       </div>

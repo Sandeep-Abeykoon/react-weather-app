@@ -11,6 +11,7 @@ function App() {
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
   const [hourlyWeatherForecast, setHourlyWeatherForecast] = useState(null);
   const [unit, setUnit] = useState("metric");
+  const [unitSymbol, setUnitSymbol] = useState("");
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -18,36 +19,38 @@ function App() {
         lat: "6.927079",
         lon: "79.861244",
         units: unit,
-      }).then((data) => {
-        setCurrentWeatherData(data.current);
-        setHourlyWeatherForecast(data.hourly);
-      });
+      })
+        .then((data) => {
+          setCurrentWeatherData(data.current);
+          setHourlyWeatherForecast(data.hourly);
+        }).then(() => {
+          unit === "metric"? setUnitSymbol("°C") : setUnitSymbol("K")
+        })
     };
 
     // Fetch data every 30 minutes
     fetchWeather();
     const interval = setInterval(() => {
-      fetchWeather(); 
+      fetchWeather();
     }, 15 * 60 * 1000);
 
     // Clean up the interval to avoid memory leaks
     return () => clearInterval(interval);
   }, [unit]);
 
-  console.log(currentWeatherData);
   return (
     <div className="App">
       <TopButtons />
-      <Inputs setUnit={setUnit}/>
+      <Inputs setUnit={setUnit} />
       {currentWeatherData && (
         <>
-          <TimeAndLocation weather={currentWeatherData} />
-          <TemperatureAndDetails weather={currentWeatherData} />
+          <TimeAndLocation weather={currentWeatherData}/>
+          <TemperatureAndDetails weather={currentWeatherData} unitSymbol={unitSymbol}/>
         </>
       )}
       {hourlyWeatherForecast && (
         <>
-          <Forecast title="Hourly" data={hourlyWeatherForecast} />
+          <Forecast title="Hourly" data={hourlyWeatherForecast} unitSymbol={unitSymbol}/>
         </>
       )}
       {/* <Forecast title="Hourly" />

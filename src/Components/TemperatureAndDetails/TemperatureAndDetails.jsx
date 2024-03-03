@@ -23,18 +23,19 @@ const TemperatureAndDetails = ({
     humidity,
     feels_like,
   },
+  unitSymbol,
 }) => {
   return (
     <div className={styles.temperatureAndDetails}>
-      <div className={styles.weather}>{description}</div>
+      <div className={styles.weather}>{description ? description : ""}</div>
       <div className={styles.details}>
         <img src={iconUrl} alt="Weather Icon" />
-        <p>{temp.toFixed()}°</p>
+        <p>{temp?.toFixed()}{unitSymbol}</p>
         <div className={styles.basicStats}>
           <div className={styles.stat}>
             <UilTemperature />
             <span>Real Feel : </span>
-            <span style={{ fontWeight: "bold" }}>{feels_like.toFixed()}°</span>
+            <span style={{ fontWeight: "bold" }}>{feels_like?.toFixed()}{unitSymbol}</span>
           </div>
           <div className={styles.stat}>
             <UilTear />

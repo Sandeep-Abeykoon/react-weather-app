@@ -1,20 +1,22 @@
 import { DateTime } from "luxon";
 
 const API_KEY = "5db6d5cd7f140ed2ede4003d3b70018f";
-const BASE_URL = "https://api.openweathermap.org/data/2.5/";
+const BASE_URL = "https://api.openweathermap.org/";
+const WEATHER_DATA_ROUTE = "data/2.5/";
 
 const dateFormat = "cccc, dd LLLL yyyy";
 const timeFormat = "hh:mm a";
 
 // Main function called from the app to get the weather data
 const getWeatherData = async (searchParams) => {
-  const formattedCurrentWeather = await fetchWeatherData(
-    "weather",
+  getCitiesByName()
+  const formattedCurrentWeather = await fetchAPIData(
+    WEATHER_DATA_ROUTE + "weather",
     searchParams
   ).then(formatWeather);
 
-  const formattedDailyForcastWeather = await fetchWeatherData(
-    "forecast",
+  const formattedDailyForcastWeather = await fetchAPIData(
+    WEATHER_DATA_ROUTE + "forecast",
     searchParams
   ).then(formatForcastWeather);
 
@@ -75,44 +77,20 @@ const formatTolocalDateTime = (timestamp, format) => {
 };
 
 // Function to fetch weather data from the openweathermap api
-const fetchWeatherData = async (infoType, searchParams) => {
-  const url = new URL(BASE_URL + infoType);
+const fetchAPIData = async (path, searchParams) => {
+  const url = new URL(BASE_URL + path);
   url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
 
   const res = await fetch(url);
   return await res.json();
 };
 
-// const formatForecastWeather = (data) => {
-//   let { timezone, daily, hourly } = data;
-//   daily = daily.slice(1, 6).map((d) => {
-//     return {
-//       title: formatTolocalTime(d.dt, timezone, "ccc"),
-//       temp: d.temp.day,
-//       icon: d.weather[0].icon,
-//     };
-//   });
-
-//   hourly = daily.slice(1, 6).map((d) => {
-//     return {
-//       title: formatTolocalTime(d.dt, timezone, "hh:mm a"),
-//       temp: d.temp.day,
-//       icon: d.weather[0].icon,
-//     };
-//   });
-
-//   return { timezone, daily, hourly };
-// };
-
-// Main Function called to get the weather data
-
-// const { lon, lat } = formattedCurrentWeather;
-
-// const formattedForecastWeather = await getWeatherData("onecall", {
-//   lon,
-//   lat,
-//   exclude: "current,minutely,alerts",
-//   units: searchParams.units,
-// }).then(formatForecastWeather);
+const getCitiesByName = async (searchParams) => {
+  const data = await fetchAPIData("geo/1.0/direct?", {
+    q: "London",
+    limit: "5",
+  });
+  console.log(data)
+};
 
 export default getWeatherData;
