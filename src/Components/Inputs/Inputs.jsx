@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UilSearch, UilLocationPoint } from "@iconscout/react-unicons";
+import { UilLocationPoint } from "@iconscout/react-unicons";
 import { getCitiesByName } from "../../Services/WeatherService";
 import styles from "./Inputs.module.css";
 
@@ -59,7 +59,6 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
           </div>
         </div>
 
-        <UilSearch className="icon" />
         <UilLocationPoint
           className="icon"
           onClick={() => {
@@ -81,21 +80,19 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
       </div>
 
       <div className={styles.temperatureUnits}>
-        <button
+        <span
           name="metric"
-          className="icon"
           onClick={() => setUnit("metric")}
         >
           °C
-        </button>
-        <p>|</p>
-        <button
+        </span>
+        <span>|</span>
+        <span
           name="imperial"
-          className="icon"
           onClick={() => setUnit("imperial")}
         >
           °F
-        </button>
+        </span>
       </div>
     </div>
   );

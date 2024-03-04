@@ -1,3 +1,9 @@
+:root {
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 20px;
+}
+
 .App {
   color: white;
   display: flex;
@@ -7,7 +13,11 @@
   margin: auto;
   margin-top: 16px;
   padding: 40px 128px;
-  background: linear-gradient(to bottom right, rgb(50, 50, 50), rgba(50, 50, 50, 0.9));
+  background: linear-gradient(
+    to bottom right,
+    rgb(50, 50, 50),
+    rgba(50, 50, 50, 0.9)
+  );
   height: fit-content;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
@@ -28,4 +38,32 @@ button {
 
 .icon:hover {
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 800px) {
+  .App {
+    padding: 40px 100px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .App {
+    padding: 40px 70px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .App {
+    padding: 40px 50px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .icon {
+    height: 20px;
+    width: 20px;
+  }
+  .App {
+    padding: 40px 20px;
+  }
 }

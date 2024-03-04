@@ -1,4 +1,5 @@
 .timeAndLocation {
+  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,11 +7,22 @@
 }
 
 .dateTime {
-  font-size: 1.25em;
+  font-size: var(--font-size-large);
   font-weight: 200;
 }
 
 .city {
-  font-size: 1.875rem;
+  font-size: 30px;
   font-weight: 500;
+}
+
+@media  screen and (max-width: 750px) {
+  .dateTime {
+    font-size: var(--font-size-medium);
+    font-weight: 300;
+  }
+
+  .city {
+    font-size: 25px;
+  }
 }

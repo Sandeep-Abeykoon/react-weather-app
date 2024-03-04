@@ -1,11 +1,25 @@
 .topButtons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
 }
 
 .topButtons button {
-    cursor: pointer;
-    font-size: 1.125rem;
-    font-weight: 500;
+  cursor: pointer;
+  font-size: var(--font-size-large);
+  /* 1.125 rem */
+  font-weight: 500;
+}
+
+@media screen and (max-width: 750px) {
+  .topButtons button {
+    font-size: var(--font-size-medium);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .topButtons button {
+    font-size: var(--font-size-small);
+  }
 }

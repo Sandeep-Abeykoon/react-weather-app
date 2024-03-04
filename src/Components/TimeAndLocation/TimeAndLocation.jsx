@@ -6,9 +6,9 @@ export const TimeAndLocation = ({
 }) => {
   return (
     <div className={styles.timeAndLocation}>
-      <p className={styles.dateTime}>
+      <span className={styles.dateTime}>
         {`${localDate} | Local time: ${localTime}`}
-      </p>
+      </span>
       <div className={styles.city}>{`${name}, ${country}`}</div>
     </div>
   );
