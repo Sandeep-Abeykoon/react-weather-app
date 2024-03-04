@@ -8,7 +8,7 @@
 
 .weather {
   color: lightcyan;
-  font-size: 1.25rem;
+  font-size: var(--font-size-large);
 }
 
 .details {
@@ -25,12 +25,12 @@
 }
 
 .details p {
-  font-size: 3rem;
+  font-size: 50px;
 }
 
 .basicStats {
   font-weight: 300;
-  font-size: 0.875rem;
+  font-size: var(--font-size-small);
   display: flex;
   justify-content: center;
   justify-content: center;
@@ -46,7 +46,8 @@
 }
 
 .highLowStats {
-  font-size: 0.875rem;
+  background-color: red;
+  font-size: var(--font-size-small);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,4 +64,30 @@
 
 .statValue {
   font-weight: 500;
+}
+
+@media screen and (max-width: 750px) {
+  .weather {
+    font-size: var(--font-size-medium);
+  }
+
+  .details img {
+    width: 80px;
+    height: auto;
+  }
+
+  .details p {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .details {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .details > * {
+    margin: 0;
+    padding: 0;
+  }
 }

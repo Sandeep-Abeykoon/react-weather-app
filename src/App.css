@@ -54,7 +54,7 @@ button {
 
 @media screen and (max-width: 600px) {
   .App {
-    padding: 40px 50px;
+    padding: 40px 20px;
   }
 }
 
@@ -62,8 +62,5 @@ button {
   .icon {
     height: 20px;
     width: 20px;
-  }
-  .App {
-    padding: 40px 20px;
   }
 }
