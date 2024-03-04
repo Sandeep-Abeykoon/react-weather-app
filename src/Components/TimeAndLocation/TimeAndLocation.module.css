@@ -7,6 +7,10 @@
 }
 
 .dateTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   font-size: var(--font-size-large);
   font-weight: 200;
 }
@@ -24,5 +28,11 @@
 
   .city {
     font-size: 25px;
+  }
+}
+
+@media  screen and (max-width: 500px) {
+  .dateTime {
+    flex-direction: column;
   }
 }
