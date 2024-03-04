@@ -8,17 +8,25 @@ import getWeatherData from "./Services/WeatherService";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [coordinates, setCoordinates] = useState({
-    lat: "6.9016086",
-    lon: "80.0087746",
+  const [coordinates, setCoordinates] = useState(() => {
+    const savedCoordinates = localStorage.getItem("weatherCoordinates");
+    return savedCoordinates
+      ? JSON.parse(savedCoordinates)
+      : { lat: "", lon: "" };
   });
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
   const [hourlyWeatherForecast, setHourlyWeatherForecast] = useState(null);
   const [unit, setUnit] = useState("metric");
   const [unitSymbol, setUnitSymbol] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     const fetchWeather = async () => {
+      if (!coordinates.lat || !coordinates.lon) {
+        setShowMessage(true);
+        return;
+      }
+
       await getWeatherData({
         lat: coordinates.lat,
         lon: coordinates.lon,
@@ -27,6 +35,7 @@ function App() {
         .then((data) => {
           setCurrentWeatherData(data.current);
           setHourlyWeatherForecast(data.hourly);
+          setShowMessage(false);
         })
         .then(() => {
           unit === "metric" ? setUnitSymbol("°C") : setUnitSymbol("K");
@@ -43,11 +52,18 @@ function App() {
     return () => clearInterval(interval);
   }, [unit, coordinates]);
 
+  useEffect(() => {
+    localStorage.setItem("weatherCoordinates", JSON.stringify(coordinates));
+  }, [coordinates]);
+
   return (
     <div className="App">
       <TopButtons setCoordinates={setCoordinates} />
       <Inputs setUnit={setUnit} setCoordinates={setCoordinates} />
-      {currentWeatherData && (
+      <div className={`message ${showMessage ? "show" : ""}`}>
+        Search or select a city to get started...
+      </div>
+      {currentWeatherData && !showMessage && (
         <>
           <TimeAndLocation weather={currentWeatherData} />
           <TemperatureAndDetails
@@ -56,7 +72,7 @@ function App() {
           />
         </>
       )}
-      {hourlyWeatherForecast && (
+      {hourlyWeatherForecast && !showMessage && (
         <>
           <Forecast
             title="Hourly"

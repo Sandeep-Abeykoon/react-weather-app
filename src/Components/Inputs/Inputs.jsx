@@ -81,6 +81,7 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
 
       <div className={styles.temperatureUnits}>
         <span
+          className={styles.unit}
           name="metric"
           onClick={() => setUnit("metric")}
         >
@@ -88,6 +89,7 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
         </span>
         <span>|</span>
         <span
+          className={styles.unit}
           name="imperial"
           onClick={() => setUnit("imperial")}
         >
