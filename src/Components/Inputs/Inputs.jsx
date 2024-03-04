@@ -17,7 +17,6 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
       if (city.trim() === "") {
         setCityData([]);
       } else if (fetchData) {
-        console.log("Fetches Data");
         getCitiesData();
       }
     }, 300); // A timeout is added to makesure to fetch the data, when the user has stopped typing.
@@ -25,10 +24,12 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
     return () => clearTimeout(delay);
   }, [city, fetchData]);
 
-  const handleCityClick = (selectedCity) => {
+  const handleSuggestionClick = (selectedCity) => {
     setFetchData(false);
     setCity(
-      `${selectedCity.name}, ${selectedCity.state}, ${selectedCity.country}`
+      `${selectedCity.name ? selectedCity.name + ", " : ""}${
+        selectedCity.state ? selectedCity.state + ", " : ""
+      }${selectedCity.country || ""}`
     );
     setCityData([]); // Clear suggestions after selection
     setCoordinates({ lat: selectedCity.lat, lon: selectedCity.lon });
@@ -49,8 +50,10 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
           />
           <div className={styles.suggessions}>
             {cityData?.map((city, index) => (
-              <span key={index} onClick={() => handleCityClick(city)}>
-                {city.name} {`(${city.state}, ${city.country})`}
+              <span key={index} onClick={() => handleSuggestionClick(city)}>
+                {`${city.name ? city.name + ", " : ""}${
+                  city.state ? city.state + ", " : ""
+                }${city.country || ""}`}
               </span>
             ))}
           </div>
@@ -66,11 +69,11 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
                   lat: location.coords.latitude,
                   lon: location.coords.longitude,
                 });
-                setCity("")
+                setCity("");
               },
               (error) => {
                 alert("Error Fetching your location");
-                console.log(error)
+                console.log(error);
               }
             );
           }}

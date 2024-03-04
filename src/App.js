@@ -45,8 +45,8 @@ function App() {
 
   return (
     <div className="App">
-      <TopButtons />
-      <Inputs setUnit={setUnit} setCoordinates={setCoordinates}/>
+      <TopButtons setCoordinates={setCoordinates} />
+      <Inputs setUnit={setUnit} setCoordinates={setCoordinates} />
       {currentWeatherData && (
         <>
           <TimeAndLocation weather={currentWeatherData} />
@@ -65,8 +65,6 @@ function App() {
           />
         </>
       )}
-      {/* <Forecast title="Hourly" />
-      <Forecast title="Daily" /> */}
     </div>
   );
 }

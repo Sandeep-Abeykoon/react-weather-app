@@ -1,7 +1,14 @@
 import React from "react";
-import styles from "./TopButtons.module.css"
+import styles from "./TopButtons.module.css";
+import { getCitiesByName } from "../../Services/WeatherService";
 
-export const TopButtons = ()=> {
+export const TopButtons = ({ setCoordinates }) => {
+  const handleCityClick = async (city) => {
+    await getCitiesByName({ q: city, limit: "1" }).then((data) => {
+      setCoordinates({ lat: data[0].lat, lon: data[0].lon });
+    });
+  };
+
   const cities = [
     {
       id: 1,
@@ -27,9 +34,11 @@ export const TopButtons = ()=> {
 
   return (
     <div className={styles.topButtons}>
-        {cities.map((city) => (
-            <button key={city.id}>{city.title}</button>
-        ))}
+      {cities.map((city) => (
+        <button key={city.id} onClick={() => handleCityClick(city.title)}>
+          {city.title}
+        </button>
+      ))}
     </div>
   );
-}
+};
