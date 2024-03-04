@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [coordinates, setCoordinates] = useState({
-    lat: "6.927079",
-    lon: "79.861244",
+    lat: "6.9016086",
+    lon: "80.0087746",
   });
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
   const [hourlyWeatherForecast, setHourlyWeatherForecast] = useState(null);

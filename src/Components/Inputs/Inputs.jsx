@@ -57,7 +57,24 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
         </div>
 
         <UilSearch className="icon" />
-        <UilLocationPoint className="icon" />
+        <UilLocationPoint
+          className="icon"
+          onClick={() => {
+            navigator.geolocation.getCurrentPosition(
+              (location) => {
+                setCoordinates({
+                  lat: location.coords.latitude,
+                  lon: location.coords.longitude,
+                });
+                setCity("")
+              },
+              (error) => {
+                alert("Error Fetching your location");
+                console.log(error)
+              }
+            );
+          }}
+        />
       </div>
 
       <div className={styles.temperatureUnits}>
