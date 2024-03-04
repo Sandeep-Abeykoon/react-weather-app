@@ -3,7 +3,8 @@ import { UilSearch, UilLocationPoint } from "@iconscout/react-unicons";
 import { getCitiesByName } from "../../Services/WeatherService";
 import styles from "./Inputs.module.css";
 
-export const Inputs = ({ setUnit }) => {
+export const Inputs = ({ setUnit, setCoordinates }) => {
+  const [fetchData, setFetchData] = useState(true);
   const [city, setCity] = useState("");
   const [cityData, setCityData] = useState([]);
 
@@ -15,15 +16,22 @@ export const Inputs = ({ setUnit }) => {
 
       if (city.trim() === "") {
         setCityData([]);
-      } else {
+      } else if (fetchData) {
+        console.log("Fetches Data");
         getCitiesData();
       }
     }, 300); // A timeout is added to makesure to fetch the data, when the user has stopped typing.
 
     return () => clearTimeout(delay);
-  }, [city]);
+  }, [city, fetchData]);
 
-  console.log(cityData)
+  const handleCityClick = (selectedCity) => {
+    setFetchData(false);
+    setCity(
+      `${selectedCity.name}, ${selectedCity.state}, ${selectedCity.country}`
+    );
+    setCityData([]); // Clear suggestions after selection
+  };
 
   return (
     <div className={styles.inputs}>
@@ -32,11 +40,17 @@ export const Inputs = ({ setUnit }) => {
           <input
             type="text"
             placeholder="Search for city..."
-            onChange={(e) => setCity(e.currentTarget.value.trim())}
+            value={city}
+            onChange={(e) => {
+              setCity(e.currentTarget.value.trim());
+              setFetchData(true);
+            }}
           />
           <div className={styles.suggessions}>
             {cityData?.map((city, index) => (
-              <span key={index}>{city.name} {`(${city.state}, ${city.country})`}</span>
+              <span key={index} onClick={() => handleCityClick(city)}>
+                {city.name} {`(${city.state}, ${city.country})`}
+              </span>
             ))}
           </div>
         </div>

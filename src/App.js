@@ -8,6 +8,10 @@ import getWeatherData from "./Services/WeatherService";
 import { useEffect, useState } from "react";
 
 function App() {
+  const [coordinates, setCoordinates] = useState({
+    lat: "6.927079",
+    lon: "79.861244",
+  });
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
   const [hourlyWeatherForecast, setHourlyWeatherForecast] = useState(null);
   const [unit, setUnit] = useState("metric");
@@ -16,19 +20,20 @@ function App() {
   useEffect(() => {
     const fetchWeather = async () => {
       await getWeatherData({
-        lat: "6.927079",
-        lon: "79.861244",
+        lat: coordinates.lat,
+        lon: coordinates.lon,
         units: unit,
       })
         .then((data) => {
           setCurrentWeatherData(data.current);
           setHourlyWeatherForecast(data.hourly);
-        }).then(() => {
-          unit === "metric"? setUnitSymbol("°C") : setUnitSymbol("K")
         })
+        .then(() => {
+          unit === "metric" ? setUnitSymbol("°C") : setUnitSymbol("K");
+        });
     };
 
-    // Fetch data every 30 minutes
+    // Fetch data every 15 minutes
     fetchWeather();
     const interval = setInterval(() => {
       fetchWeather();
@@ -36,21 +41,28 @@ function App() {
 
     // Clean up the interval to avoid memory leaks
     return () => clearInterval(interval);
-  }, [unit]);
+  }, [unit, coordinates]);
 
   return (
     <div className="App">
       <TopButtons />
-      <Inputs setUnit={setUnit} />
+      <Inputs setUnit={setUnit} setCoordinates={setCoordinates}/>
       {currentWeatherData && (
         <>
-          <TimeAndLocation weather={currentWeatherData}/>
-          <TemperatureAndDetails weather={currentWeatherData} unitSymbol={unitSymbol}/>
+          <TimeAndLocation weather={currentWeatherData} />
+          <TemperatureAndDetails
+            weather={currentWeatherData}
+            unitSymbol={unitSymbol}
+          />
         </>
       )}
       {hourlyWeatherForecast && (
         <>
-          <Forecast title="Hourly" data={hourlyWeatherForecast} unitSymbol={unitSymbol}/>
+          <Forecast
+            title="Hourly"
+            data={hourlyWeatherForecast}
+            unitSymbol={unitSymbol}
+          />
         </>
       )}
       {/* <Forecast title="Hourly" />
