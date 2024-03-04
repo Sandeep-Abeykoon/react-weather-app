@@ -1,9 +1,9 @@
 .timeAndLocation {
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
 }
 
 .dateTime {
@@ -20,7 +20,7 @@
   font-weight: 500;
 }
 
-@media  screen and (max-width: 750px) {
+@media screen and (max-width: 750px) {
   .dateTime {
     font-size: var(--font-size-medium);
     font-weight: 300;
@@ -31,8 +31,12 @@
   }
 }
 
-@media  screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
+  .timeAndLocation {
+    margin-top: 0px;
+  }
   .dateTime {
     flex-direction: column;
+   gap: 5px;
   }
 }
