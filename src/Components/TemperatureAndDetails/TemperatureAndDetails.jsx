@@ -30,12 +30,18 @@ const TemperatureAndDetails = ({
       <div className={styles.weather}>{description ? description : ""}</div>
       <div className={styles.details}>
         <img src={iconUrl} alt="Weather Icon" />
-        <p>{temp?.toFixed()}{unitSymbol}</p>
+        <p>
+          {temp?.toFixed()}
+          {unitSymbol}
+        </p>
         <div className={styles.basicStats}>
           <div className={styles.stat}>
             <UilTemperature />
             <span>Real Feel : </span>
-            <span style={{ fontWeight: "bold" }}>{feels_like?.toFixed()}{unitSymbol}</span>
+            <span style={{ fontWeight: "bold" }}>
+              {feels_like?.toFixed()}
+              {unitSymbol}
+            </span>
           </div>
           <div className={styles.stat}>
             <UilTear />
@@ -51,31 +57,32 @@ const TemperatureAndDetails = ({
       </div>
 
       <div className={styles.highLowStats}>
-        <div className={styles.highLowStat}>
-          <UilSun />
-          <span>Rise:</span>
-          <span className={styles.statValue}>{sunrise}</span>
-          <span style={{ marginLeft: "10px", marginRight: "10px" }}>|</span>
+        <div className={styles.flexContainer}>
+          <div className={styles.highLowStat}>
+            <UilSun />
+            <span>Rise:</span>
+            <span className={styles.statValue}>{sunrise}</span>
+          </div>
+
+          <div className={styles.highLowStat}>
+            <UilSunset />
+            <span>Set:</span>
+            <span className={styles.statValue}>{sunset}</span>
+          </div>
         </div>
 
-        <div className={styles.highLowStat}>
-          <UilSunset />
-          <span>Set:</span>
-          <span className={styles.statValue}>{sunset}</span>
-          <span style={{ marginLeft: "10px", marginRight: "10px" }}>|</span>
-        </div>
+        <div className={styles.flexContainer}>
+          <div className={styles.highLowStat}>
+            <UilSun />
+            <span>High:</span>
+            <span className={styles.statValue}>{temp_max.toFixed()}°</span>
+          </div>
 
-        <div className={styles.highLowStat}>
-          <UilSun />
-          <span>High:</span>
-          <span className={styles.statValue}>{temp_max.toFixed()}°</span>
-          <span style={{ marginLeft: "10px", marginRight: "10px" }}>|</span>
-        </div>
-
-        <div className={styles.highLowStat}>
-          <UilSun />
-          <span>Low:</span>
-          <span className={styles.statValue}>{temp_min.toFixed()}°</span>
+          <div className={styles.highLowStat}>
+            <UilSun />
+            <span>Low:</span>
+            <span className={styles.statValue}>{temp_min.toFixed()}°</span>
+          </div>
         </div>
       </div>
     </div>
