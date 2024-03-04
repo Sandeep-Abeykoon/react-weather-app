@@ -31,6 +31,7 @@ export const Inputs = ({ setUnit, setCoordinates }) => {
       `${selectedCity.name}, ${selectedCity.state}, ${selectedCity.country}`
     );
     setCityData([]); // Clear suggestions after selection
+    setCoordinates({ lat: selectedCity.lat, lon: selectedCity.lon });
   };
 
   return (
